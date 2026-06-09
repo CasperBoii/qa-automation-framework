@@ -1,0 +1,32 @@
+# --- Secrets & environment (NEVER commit) ---
+.env
+.env.*
+*.local
+.auth/
+**/secrets*
+**/credentials*
+*.pem
+*.key
+
+# --- Node / Playwright ---
+node_modules/
+test-results/
+playwright-report/
+blob-report/
+playwright/.cache/
+.reviews/
+
+# --- OS ---
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# --- Editor / IDE ---
+.vscode/
+.idea/
+*.swp
+*~
+
+# --- Logs ---
+*.log
+npm-debug.log*
