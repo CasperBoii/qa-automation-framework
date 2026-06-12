@@ -71,7 +71,7 @@ body{background:var(--black);color:var(--text-1);font-family:var(--font);font-si
 .hero{padding:calc(var(--nav-h) + 60px) 0 80px;text-align:center;position:relative;overflow:hidden;}
 .hero::before{content:'';position:absolute;top:0;left:50%;transform:translateX(-50%);width:800px;height:500px;background:radial-gradient(ellipse,rgba(41,151,255,.12),transparent 70%);pointer-events:none;}
 .hero .t-ey{margin-bottom:16px;}.hero .t-h{margin-bottom:20px;}.hero .t-intro{margin:0 auto 32px;}
-.hero-orb{width:460px;max-width:90%;height:auto;display:block;margin:-8px auto 16px;pointer-events:none;}
+.hero-orb{width:460px;max-width:90%;height:auto;aspect-ratio:552/328;display:block;margin:-8px auto 16px;pointer-events:none;mix-blend-mode:screen;}
 .hero-pills{display:flex;justify-content:center;flex-wrap:wrap;gap:8px;margin-top:28px;}
 @media(max-width:734px){.hero-orb{width:340px;}}
 .pill{display:inline-flex;align-items:center;gap:6px;padding:7px 15px;border-radius:980px;font-size:12px;font-weight:500;color:var(--text-2);background:var(--lg-fill);border:1px solid var(--lg-border);backdrop-filter:blur(18px) saturate(180%);-webkit-backdrop-filter:blur(18px) saturate(180%);box-shadow:inset 0 1px 1px rgba(255,255,255,.35),inset 0 -1px 1px rgba(0,0,0,.2),0 4px 14px rgba(0,0,0,.3);}
@@ -231,7 +231,10 @@ body{background:var(--black);color:var(--text-1);font-family:var(--font);font-si
   <div class="vp">
     <p class="t-ey fi" data-en="Portfolio · QA Automation" data-th="ผลงาน · QA Automation">Portfolio · QA Automation</p>
     <h1 class="t-h fi"><span class="gradient-text" data-en="AI-Augmented QA" data-th="AI-Augmented QA">AI-Augmented QA</span><br><span data-en="Automation Toolkit" data-th="Automation Toolkit">Automation Toolkit</span></h1>
-    <img class="hero-orb fi" src="src/orb.webp" alt="" aria-hidden="true">
+    <video class="hero-orb fi" autoplay loop muted playsinline poster="src/orb-poster.webp" aria-hidden="true">
+      <source src="src/orb.webm" type="video/webm">
+      <source src="src/orb.mp4" type="video/mp4">
+    </video>
     <p class="t-intro fi" data-en="A QA automation framework I built for my own daily work — packaged as Claude Code skills. I design the workflow and guardrails; the AI agent does the repetitive driving." data-th="เฟรมเวิร์ก QA Automation ที่ผมสร้างขึ้นมาเพื่อใช้ในงานประจำวัน — จัดเป็น Claude Code Skills ผมเป็นคนออกแบบ Workflow และกฎเกณฑ์ ส่วน AI Agent ทำงานซ้ำๆ แทนเรา">A QA automation framework I built for my own daily work — packaged as Claude Code skills. I design the workflow and guardrails; the AI agent does the repetitive driving.</p>
     <div class="hero-pills fi">
       <span class="pill">👤 Pornpavit Tantilavasute</span>
@@ -703,6 +706,12 @@ function toggleLang(){
   applyLang();
 }
 applyLang();
+
+/* ── Respect reduced-motion: hold the orb on its poster frame ── */
+if(matchMedia('(prefers-reduced-motion: reduce)').matches){
+  const orb=document.querySelector('video.hero-orb');
+  if(orb){orb.removeAttribute('autoplay');orb.pause();}
+}
 </script>
 </body>
 </html>
