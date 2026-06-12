@@ -30,3 +30,10 @@ desktop.ini
 # --- Logs ---
 *.log
 npm-debug.log*
+
+# --- Claude Code local config ---
+.claude/
+
+# --- Orb: raw frames are the source for src/orb.webp (shipped); don't commit the 30MB+ PNGs ---
+src/ezgif-frame-*.png
+make_orb.py
