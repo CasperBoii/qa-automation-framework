@@ -18,13 +18,28 @@
   --blue:#2997ff;--green:#30d158;--orange:#ff9f0a;--red:#ff453a;
   --purple:#bf5af2;--teal:#64d2ff;--pink:#ff375f;
   --nav-h:52px;
+  /* ── Liquid glass system ── */
+  --lg-fill:linear-gradient(135deg,rgba(255,255,255,.10),rgba(255,255,255,.025) 42%,rgba(255,255,255,.05));
+  --lg-border:rgba(255,255,255,.10);
+  --lg-shadow:inset 0 1px 1px rgba(255,255,255,.38),inset 0 -1px 1px rgba(255,255,255,.10),inset 0 -10px 26px rgba(0,0,0,.22),0 10px 30px rgba(0,0,0,.45);
 }
 *{box-sizing:border-box;margin:0;padding:0;}
 html{scroll-behavior:smooth;scroll-padding-top:calc(var(--nav-h) + 16px);-webkit-text-size-adjust:100%;}
 body{background:var(--black);color:var(--text-1);font-family:var(--font);font-size:17px;line-height:1.47;-webkit-font-smoothing:antialiased;overflow-x:hidden;}
 
+/* ── Aurora backdrop (gives the glass something to refract) ── */
+.aurora{position:fixed;inset:0;z-index:-1;pointer-events:none;overflow:hidden;}
+.aurora .blob{position:absolute;border-radius:50%;filter:blur(72px);opacity:.46;will-change:transform;}
+.aurora .b1{width:620px;height:620px;background:radial-gradient(circle,rgba(41,151,255,.7),transparent 68%);top:-160px;left:-120px;animation:drift1 26s ease-in-out infinite;}
+.aurora .b2{width:540px;height:540px;background:radial-gradient(circle,rgba(191,90,242,.62),transparent 68%);top:34%;right:-140px;animation:drift2 32s ease-in-out infinite;}
+.aurora .b3{width:500px;height:500px;background:radial-gradient(circle,rgba(100,210,255,.58),transparent 68%);bottom:-180px;left:28%;animation:drift3 29s ease-in-out infinite;}
+@keyframes drift1{50%{transform:translate(130px,90px) scale(1.15);}}
+@keyframes drift2{50%{transform:translate(-110px,70px) scale(1.1);}}
+@keyframes drift3{50%{transform:translate(90px,-100px) scale(1.2);}}
+@media(prefers-reduced-motion:reduce){.aurora .blob{animation:none;}}
+
 /* ── NAV ── */
-.nav{position:sticky;top:0;z-index:100;background:rgba(0,0,0,.72);backdrop-filter:blur(20px) saturate(180%);-webkit-backdrop-filter:blur(20px) saturate(180%);border-bottom:1px solid rgba(255,255,255,.08);height:var(--nav-h);}
+.nav{position:sticky;top:0;z-index:100;background:rgba(0,0,0,.55);backdrop-filter:blur(28px) saturate(190%);-webkit-backdrop-filter:blur(28px) saturate(190%);border-bottom:1px solid rgba(255,255,255,.08);box-shadow:inset 0 1px 0 rgba(255,255,255,.10),0 1px 20px rgba(0,0,0,.3);height:var(--nav-h);}
 .nav-inner{max-width:1120px;margin:0 auto;display:flex;align-items:center;height:100%;padding:0 22px;gap:6px;}
 .nav-brand{font-size:14px;font-weight:600;color:var(--text-1);white-space:nowrap;margin-right:auto;letter-spacing:-.01em;}
 .nav-links{display:flex;gap:2px;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;}
@@ -32,8 +47,9 @@ body{background:var(--black);color:var(--text-1);font-family:var(--font);font-si
 .nav-link{padding:8px 14px;font-size:12px;font-weight:500;color:var(--text-3);border-radius:980px;white-space:nowrap;text-decoration:none;transition:color .2s,background .2s;cursor:pointer;}
 .nav-link:hover{color:var(--text-2);}
 .nav-link.active{color:var(--text-1);background:rgba(255,255,255,.08);}
-.lang-btn{padding:6px 14px;border-radius:980px;border:1px solid var(--glass-border);background:var(--glass);font-size:11px;font-weight:600;color:var(--text-2);cursor:pointer;white-space:nowrap;transition:all .2s;margin-left:8px;font-family:var(--font);}
-.lang-btn:hover{border-color:rgba(255,255,255,.25);color:var(--text-1);}
+.lang-btn{padding:6px 14px;border-radius:980px;border:1px solid var(--lg-border);background:var(--lg-fill);backdrop-filter:blur(14px) saturate(180%);-webkit-backdrop-filter:blur(14px) saturate(180%);box-shadow:inset 0 1px 1px rgba(255,255,255,.3),inset 0 -1px 1px rgba(0,0,0,.18);font-size:11px;font-weight:600;color:var(--text-2);cursor:pointer;white-space:nowrap;transition:border-color .2s,color .2s,box-shadow .2s,transform .2s;margin-left:8px;font-family:var(--font);}
+.lang-btn:hover{border-color:rgba(255,255,255,.3);color:var(--text-1);box-shadow:inset 0 1px 1px rgba(255,255,255,.45),inset 0 -1px 1px rgba(0,0,0,.2);}
+.lang-btn:active{transform:scale(.96);}
 
 /* ── Typography ── */
 .t-ey{font-size:21px;font-weight:600;line-height:1.24;color:var(--text-2);}
@@ -56,7 +72,7 @@ body{background:var(--black);color:var(--text-1);font-family:var(--font);font-si
 .hero::before{content:'';position:absolute;top:0;left:50%;transform:translateX(-50%);width:800px;height:500px;background:radial-gradient(ellipse,rgba(41,151,255,.12),transparent 70%);pointer-events:none;}
 .hero .t-ey{margin-bottom:16px;}.hero .t-h{margin-bottom:20px;}.hero .t-intro{margin:0 auto 32px;}
 .hero-pills{display:flex;justify-content:center;flex-wrap:wrap;gap:8px;margin-top:28px;}
-.pill{display:inline-flex;align-items:center;gap:6px;padding:6px 14px;border-radius:980px;font-size:12px;font-weight:500;color:var(--text-2);background:var(--glass);border:1px solid var(--glass-border);backdrop-filter:blur(20px);}
+.pill{display:inline-flex;align-items:center;gap:6px;padding:7px 15px;border-radius:980px;font-size:12px;font-weight:500;color:var(--text-2);background:var(--lg-fill);border:1px solid var(--lg-border);backdrop-filter:blur(18px) saturate(180%);-webkit-backdrop-filter:blur(18px) saturate(180%);box-shadow:inset 0 1px 1px rgba(255,255,255,.35),inset 0 -1px 1px rgba(0,0,0,.2),0 4px 14px rgba(0,0,0,.3);}
 
 /* ── Routing Table ── */
 .route-table{width:100%;border-collapse:collapse;margin:32px 0;font-size:15px;}
@@ -67,11 +83,16 @@ body{background:var(--black);color:var(--text-1);font-family:var(--font);font-si
 .route-table tr:hover td{background:rgba(255,255,255,.02);}
 
 /* ── Glass Card ── */
-.gc{background:var(--glass);border:1px solid var(--glass-border);border-radius:20px;padding:28px;backdrop-filter:blur(20px) saturate(180%);position:relative;overflow:hidden;transition:transform .3s,border-color .3s;cursor:pointer;}
-.gc::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(255,255,255,.2),transparent);}
-.gc:hover{transform:translateY(-2px);border-color:rgba(255,255,255,.2);}
-.gc.active{border-color:rgba(41,151,255,.4);}
-.gc.active::after{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(41,151,255,.04),transparent);pointer-events:none;}
+.gc{background:var(--lg-fill);border:1px solid var(--lg-border);border-radius:28px;padding:28px;backdrop-filter:blur(22px) saturate(190%);-webkit-backdrop-filter:blur(22px) saturate(190%);box-shadow:var(--lg-shadow);position:relative;overflow:hidden;transition:transform .35s cubic-bezier(.4,0,.2,1),border-color .35s,box-shadow .35s;cursor:pointer;}
+.gc::before{content:'';position:absolute;inset:0;border-radius:inherit;background:linear-gradient(135deg,rgba(255,255,255,.14),transparent 38%);pointer-events:none;}
+.gc:hover{transform:translateY(-3px);border-color:rgba(255,255,255,.22);box-shadow:inset 0 1px 1px rgba(255,255,255,.5),inset 0 -1px 1px rgba(255,255,255,.12),inset 0 -10px 26px rgba(0,0,0,.22),0 16px 42px rgba(0,0,0,.55);}
+.gc.active{border-color:rgba(41,151,255,.45);box-shadow:inset 0 1px 1px rgba(255,255,255,.45),inset 0 -1px 1px rgba(0,0,0,.2),0 12px 36px rgba(41,151,255,.22),0 12px 36px rgba(0,0,0,.45);}
+.gc.active::after{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(41,151,255,.08),transparent 60%);pointer-events:none;}
+/* Real liquid refraction — only the active (open) card pays the cost; max 1 at a time.
+   Chromium only; Safari/Firefox keep the frosted-glass look. */
+@supports (backdrop-filter:url(#liquid-glass)){
+  .gc.active{-webkit-backdrop-filter:blur(1px) saturate(190%);backdrop-filter:blur(1px) saturate(190%) brightness(1.07) url(#liquid-glass);}
+}
 
 /* Node inside card */
 .nh{display:flex;align-items:flex-start;gap:16px;}
@@ -110,7 +131,7 @@ body{background:var(--black);color:var(--text-1);font-family:var(--font);font-si
 .branch-lbl{grid-column:1/-1;text-align:center;font-size:12px;font-weight:500;text-transform:uppercase;letter-spacing:.08em;color:var(--text-3);padding:6px 0;}
 
 /* ── Terminal ── */
-.terminal{background:rgba(30,30,30,.7);border:1px solid var(--glass-border);border-radius:16px;overflow:hidden;backdrop-filter:blur(20px);}
+.terminal{background:linear-gradient(135deg,rgba(40,40,46,.62),rgba(22,22,26,.62));border:1px solid var(--lg-border);border-radius:22px;overflow:hidden;backdrop-filter:blur(26px) saturate(180%);-webkit-backdrop-filter:blur(26px) saturate(180%);box-shadow:inset 0 1px 1px rgba(255,255,255,.3),inset 0 -1px 1px rgba(0,0,0,.3),0 20px 50px rgba(0,0,0,.6);}
 .tc-bar{display:flex;align-items:center;gap:8px;padding:14px 18px;background:rgba(255,255,255,.03);border-bottom:1px solid rgba(255,255,255,.06);}
 .dot{width:12px;height:12px;border-radius:50%;}.dot-r{background:#ff5f57;}.dot-y{background:#febc2e;}.dot-g{background:#28c840;}
 .tc-title{flex:1;text-align:center;font-size:12px;color:var(--text-3);font-family:var(--mono);}
@@ -126,9 +147,9 @@ body{background:var(--black);color:var(--text-1);font-family:var(--font);font-si
 
 /* ── Why grid ── */
 .wg{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px;}
-.wc{background:var(--glass);border:1px solid var(--glass-border);border-radius:16px;padding:24px;transition:transform .2s,border-color .2s;position:relative;overflow:hidden;}
-.wc::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(255,255,255,.15),transparent);}
-.wc:hover{transform:translateY(-2px);border-color:rgba(255,255,255,.2);}
+.wc{background:var(--lg-fill);border:1px solid var(--lg-border);border-radius:22px;padding:24px;backdrop-filter:blur(20px) saturate(185%);-webkit-backdrop-filter:blur(20px) saturate(185%);box-shadow:var(--lg-shadow);transition:transform .3s cubic-bezier(.4,0,.2,1),border-color .3s,box-shadow .3s;position:relative;overflow:hidden;}
+.wc::before{content:'';position:absolute;inset:0;border-radius:inherit;background:linear-gradient(135deg,rgba(255,255,255,.12),transparent 40%);pointer-events:none;}
+.wc:hover{transform:translateY(-3px);border-color:rgba(255,255,255,.22);box-shadow:inset 0 1px 1px rgba(255,255,255,.5),inset 0 -1px 1px rgba(255,255,255,.12),inset 0 -10px 26px rgba(0,0,0,.22),0 16px 42px rgba(0,0,0,.55);}
 .wi{font-size:28px;margin-bottom:14px;}.wq{font-size:17px;font-weight:600;margin-bottom:8px;}.wa{font-size:14px;color:var(--text-2);line-height:1.57;}
 
 /* ── Severity table ── */
@@ -143,7 +164,7 @@ body{background:var(--black);color:var(--text-1);font-family:var(--font);font-si
 
 /* ── Bullet feature list ── */
 .feat-list{list-style:none;padding:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:12px;}
-.feat-list li{background:var(--glass);border:1px solid var(--glass-border);border-radius:12px;padding:16px 20px;font-size:14px;color:var(--text-2);line-height:1.5;}
+.feat-list li{background:var(--lg-fill);border:1px solid var(--lg-border);border-radius:16px;padding:16px 20px;backdrop-filter:blur(18px) saturate(180%);-webkit-backdrop-filter:blur(18px) saturate(180%);box-shadow:inset 0 1px 1px rgba(255,255,255,.3),inset 0 -1px 1px rgba(0,0,0,.2),0 6px 18px rgba(0,0,0,.3);font-size:14px;color:var(--text-2);line-height:1.5;}
 .feat-list li strong{color:var(--text-1);display:block;margin-bottom:4px;}
 
 /* ── Footer ── */
@@ -169,6 +190,22 @@ body{background:var(--black);color:var(--text-1);font-family:var(--font);font-si
 </style>
 </head>
 <body>
+
+<!-- ═══ AURORA BACKDROP ═══ -->
+<div class="aurora" aria-hidden="true">
+  <span class="blob b1"></span>
+  <span class="blob b2"></span>
+  <span class="blob b3"></span>
+</div>
+
+<!-- ═══ LIQUID GLASS REFRACTION FILTER (Chromium) ═══ -->
+<svg width="0" height="0" style="position:absolute;pointer-events:none" aria-hidden="true">
+  <filter id="liquid-glass" x="-5%" y="-5%" width="110%" height="110%" color-interpolation-filters="sRGB">
+    <feTurbulence type="fractalNoise" baseFrequency="0.006 0.009" numOctaves="2" seed="11" result="noise"/>
+    <feGaussianBlur in="noise" stdDeviation="0.9" result="smap"/>
+    <feDisplacementMap in="SourceGraphic" in2="smap" scale="34" xChannelSelector="R" yChannelSelector="G"/>
+  </filter>
+</svg>
 
 <!-- ═══ NAVBAR ═══ -->
 <nav class="nav" id="navbar">
