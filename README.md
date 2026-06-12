@@ -38,8 +38,11 @@ The actual skill instruction files, sanitized but structurally intact, so you ca
 workflows and standards are written in practice.
 - `full-skills/playwright-automate/` — `skill.md` + `references/` (standards, API-seeding,
   code-review, debugging, and copy-paste TypeScript templates)
-- `full-skills/test-case/` — Epic→Sheets generation + incremental editing
+- `full-skills/test-case/` — Epic→Sheets generation + incremental editing (working-assumption oracle
+  step, technique-driven coverage-gap loop, AI/Human/Modified provenance, BDD case descriptions)
 - `full-skills/test-note/` — Story→Jira note
+- `full-skills/bug-triage/` — bug prioritization & release-triage reference (severity vs priority,
+  workaround analysis, platform/engine facts, the ≤150-word PM note)
 
 ---
 

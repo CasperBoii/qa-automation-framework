@@ -18,6 +18,25 @@ description: "Use this skill when the user asks to create a NEW test case spread
 3. **Is the parent folder ID correct?** — verify folder access before copying the template.
 4. **Is each story's AC clear enough to write test cases?** — if any story is still vague, flag it in the result and recommend asking PO.
 
+## Resolve ambiguities into working assumptions first (the test oracle)
+
+Before writing a single TC, read the AC/spec and list every point that is ambiguous or unstated
+(limits, cut-offs, what counts as invalid, edge behaviour, region/timezone). Resolve each into an
+explicit **working assumption** and record it (e.g. a short `QA-A-01..nn` matrix). Every Expected
+Result then cites the assumption it relies on, so results are definite and traceable instead of
+guessed — and the same list doubles as the questions to confirm with the PO.
+
+> Why this is step 0: a missing oracle is the #1 source of test cases (AI- or human-written) that
+> *look* right but assert the wrong thing. Decide the rule once, up front; don't re-guess per case.
+
+**Grill before you assume (Karpathy: surface assumptions, never silently pick).** When an ambiguity
+*materially changes behaviour* and the call is really the PO's/user's, don't quietly choose a branch.
+Run a short **grill-me loop**: one question at a time, walk the decision tree, *recommend* an answer
+for each, and resolve dependencies in order. Only fall back to a documented default when you genuinely
+can't get an answer — and label it an assumption, not a decision. (Batch purely *operational* unknowns
+— repo path, role count, folder access — into one question; reserve the one-at-a-time grill for
+business-logic branches.)
+
 ## AC → Scenario → TC mapping (Lead QA standard)
 
 ```
@@ -33,6 +52,8 @@ Epic (1)
 - If the AC involves numeric / length / list / range → **≥1 boundary/edge TC** (0, max, null).
 - **If AC only covers Happy path → proactively add Negative/Edge TCs from senior QA domain knowledge** — mark these with prefix `[AC-x, QA inferred]` in Description so traceability stays clear. Do NOT stay at the bare minimum just because the AC is thin.
 - **Traceability**: each TC's Description **must** reference the AC it covers by prefixing with `[AC-x]` — e.g. `[AC-1] ตรวจสอบกรณีแอดมิน...`. ห้ามละไว้ใน Remark หรือบอก "mentally".
+- **BDD Description**: phrase each TC's Description as a **Given / When / Then** statement (keep the `[AC-x]` prefix) so it reads as a behaviour and maps 1:1 to an automated test title later (sheet ↔ spec traceability).
+- **Provenance**: tag where each TC came from — `AI` (model-generated), `Modified` (model-generated then corrected — note why), `Human` (added from a technique/risk the model missed). Use a Source column if the template has one, otherwise prefix the Remark. A suite that is 100% `AI` is a red flag, not a finished suite.
 
 **Negative / Edge case patterns to apply on every Scenario (Lead QA mindset):**
 
@@ -56,6 +77,19 @@ Use these as a mental checklist — pick whatever applies to the AC, not just wh
 | **Audit log** | create/edit/delete | ตรวจ log → มีชื่อ admin + timestamp |
 
 **Coverage heuristic:** for any Scenario, aim for roughly **1 positive : 1 negative/edge** when the AC has form input or stateful action. A scenario that ends up 100% positive TCs is suspicious — re-check whether the table above has patterns you missed.
+
+**Derive cases from techniques, then measure the gap (don't just eyeball the checklist):**
+
+Map every dimension of the feature to a formal technique so coverage is *provable*, not a feeling:
+- **Equivalence Partitioning** — valid vs invalid classes for each input.
+- **Boundary Value Analysis** — the edges ±1 of every numeric / length / date / quota.
+- **Decision Table** — interacting conditions (e.g. leave type × duration × lead-time × balance); each rule = a case.
+- **State Transition** — the status lifecycle and illegal moves (cancel a pending item, edit after approve).
+
+Working loop: draft a first pass → lay the cases onto these techniques → mark the partitions /
+boundaries / transitions that are still **empty** → write only those to close the *measured* gap.
+This is what turns "I feel something's missing" into "partition X / boundary Y is provably uncovered",
+and it's also why a second prompt iteration exists (close measured gaps, not re-ask for "more cases").
 
 ## Test data strategy (col I — Data Test)
 

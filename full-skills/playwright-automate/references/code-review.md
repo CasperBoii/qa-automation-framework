@@ -142,6 +142,24 @@ Don't pad findings. If clean, say **"ไม่เจอ issue สำคัญ"**
 
 ---
 
+## Validate the tests themselves (mutation check)
+
+Code review checks that the tests are *written* well; a green run proves they *passed*. Neither
+proves they would **catch a real bug**. When a suite goes green and you're not sure the assertions
+bite — especially AI-generated ones — run a quick **mutation check**: deliberately break the code
+under test and confirm the test turns red.
+
+- Flip a rule the test claims to guard: `>=` → `>`, `a - b` → `a + b`, remove a weekend/holiday filter,
+  comment out a validation. Re-run the targeted test — it **must** fail.
+- If it stays green, the test asserts the wrong thing (or too shallow) → fix the assertion, not the app.
+- Revert the mutation immediately so it never lands in the diff.
+
+This is the cheap, reliable antidote to "all tests pass but I don't trust them" — it verifies the
+assertions, which is exactly what a passing run cannot. Pair it with cross-AI review (above) for the
+strongest signal before merge.
+
+---
+
 ## Phase 5 — Deep Review (manual escape hatch)
 
 When Phase 2.5 is insufficient — architectural concerns, cross-file refactors, type-system puzzles, contradictory findings — escalate to a manual deep-dive in **Antigravity IDE** (Gemini 3.x Pro).

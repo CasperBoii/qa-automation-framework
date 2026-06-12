@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>QA Automation Portfolio — Pornpavit Tantilavasute</title>
+<meta name="description" content="QA Automation Portfolio: AI-Augmented testing skills — Playwright E2E, Test Case Generation, Test Notes, Bug Triage. Built by Pornpavit Tantilavasute.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --font:'Inter',-apple-system,'SF Pro Display',system-ui,sans-serif;
+  --mono:'SF Mono','JetBrains Mono','Fira Code',ui-monospace,monospace;
+  --black:#000;--surface:rgba(255,255,255,.04);
+  --glass:rgba(255,255,255,.06);--glass-border:rgba(255,255,255,.12);
+  --text-1:#f5f5f7;--text-2:#86868b;--text-3:#6e6e73;
+  --blue:#2997ff;--green:#30d158;--orange:#ff9f0a;--red:#ff453a;
+  --purple:#bf5af2;--teal:#64d2ff;--pink:#ff375f;
+  --nav-h:52px;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;scroll-padding-top:calc(var(--nav-h) + 16px);-webkit-text-size-adjust:100%;}
+body{background:var(--black);color:var(--text-1);font-family:var(--font);font-size:17px;line-height:1.47;-webkit-font-smoothing:antialiased;overflow-x:hidden;}
+
+/* ── NAV ── */
+.nav{position:sticky;top:0;z-index:100;background:rgba(0,0,0,.72);backdrop-filter:blur(20px) saturate(180%);-webkit-backdrop-filter:blur(20px) saturate(180%);border-bottom:1px solid rgba(255,255,255,.08);height:var(--nav-h);}
+.nav-inner{max-width:1120px;margin:0 auto;display:flex;align-items:center;height:100%;padding:0 22px;gap:6px;}
+.nav-brand{font-size:14px;font-weight:600;color:var(--text-1);white-space:nowrap;margin-right:auto;letter-spacing:-.01em;}
+.nav-links{display:flex;gap:2px;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;}
+.nav-links::-webkit-scrollbar{display:none;}
+.nav-link{padding:8px 14px;font-size:12px;font-weight:500;color:var(--text-3);border-radius:980px;white-space:nowrap;text-decoration:none;transition:color .2s,background .2s;cursor:pointer;}
+.nav-link:hover{color:var(--text-2);}
+.nav-link.active{color:var(--text-1);background:rgba(255,255,255,.08);}
+.lang-btn{padding:6px 14px;border-radius:980px;border:1px solid var(--glass-border);background:var(--glass);font-size:11px;font-weight:600;color:var(--text-2);cursor:pointer;white-space:nowrap;transition:all .2s;margin-left:8px;font-family:var(--font);}
+.lang-btn:hover{border-color:rgba(255,255,255,.25);color:var(--text-1);}
+
+/* ── Typography ── */
+.t-ey{font-size:21px;font-weight:600;line-height:1.24;color:var(--text-2);}
+.t-h{font-size:clamp(32px,6vw,56px);font-weight:700;line-height:1.07;letter-spacing:-.005em;}
+.t-hs{font-size:clamp(24px,4vw,40px);font-weight:700;line-height:1.1;letter-spacing:-.005em;}
+.t-intro{font-size:clamp(17px,2.2vw,21px);font-weight:400;line-height:1.38;color:var(--text-2);max-width:620px;}
+.gradient-text{background:linear-gradient(90deg,var(--blue),var(--teal) 30%,var(--green) 60%,var(--blue));background-size:200% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;animation:shimmer 6s linear infinite;}
+@keyframes shimmer{to{background-position:200% center;}}
+
+/* ── Layout ── */
+.vp{max-width:980px;margin:0 auto;padding:0 22px;}
+.vpw{max-width:1120px;margin:0 auto;padding:0 22px;}
+.sec{padding:80px 0;position:relative;}
+.sec+.sec{border-top:1px solid rgba(255,255,255,.06);}
+.sh{text-align:center;margin-bottom:56px;}
+.sh .t-ey{margin-bottom:12px;}.sh .t-intro{margin:16px auto 0;}
+
+/* ── Hero ── */
+.hero{padding:calc(var(--nav-h) + 60px) 0 80px;text-align:center;position:relative;overflow:hidden;}
+.hero::before{content:'';position:absolute;top:0;left:50%;transform:translateX(-50%);width:800px;height:500px;background:radial-gradient(ellipse,rgba(41,151,255,.12),transparent 70%);pointer-events:none;}
+.hero .t-ey{margin-bottom:16px;}.hero .t-h{margin-bottom:20px;}.hero .t-intro{margin:0 auto 32px;}
+.hero-pills{display:flex;justify-content:center;flex-wrap:wrap;gap:8px;margin-top:28px;}
+.pill{display:inline-flex;align-items:center;gap:6px;padding:6px 14px;border-radius:980px;font-size:12px;font-weight:500;color:var(--text-2);background:var(--glass);border:1px solid var(--glass-border);backdrop-filter:blur(20px);}
+
+/* ── Routing Table ── */
+.route-table{width:100%;border-collapse:collapse;margin:32px 0;font-size:15px;}
+.route-table th{text-align:left;padding:12px 16px;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:var(--text-3);border-bottom:1px solid rgba(255,255,255,.1);}
+.route-table td{padding:14px 16px;border-bottom:1px solid rgba(255,255,255,.05);color:var(--text-2);vertical-align:top;}
+.route-table td:first-child{color:var(--text-1);font-weight:500;}
+.route-table td strong{font-weight:600;}
+.route-table tr:hover td{background:rgba(255,255,255,.02);}
+
+/* ── Glass Card ── */
+.gc{background:var(--glass);border:1px solid var(--glass-border);border-radius:20px;padding:28px;backdrop-filter:blur(20px) saturate(180%);position:relative;overflow:hidden;transition:transform .3s,border-color .3s;cursor:pointer;}
+.gc::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(255,255,255,.2),transparent);}
+.gc:hover{transform:translateY(-2px);border-color:rgba(255,255,255,.2);}
+.gc.active{border-color:rgba(41,151,255,.4);}
+.gc.active::after{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(41,151,255,.04),transparent);pointer-events:none;}
+
+/* Node inside card */
+.nh{display:flex;align-items:flex-start;gap:16px;}
+.ni{width:36px;height:36px;min-width:36px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;font-family:var(--mono);margin-top:2px;}
+.ic-bl{background:rgba(41,151,255,.15);color:var(--blue);border:1px solid rgba(41,151,255,.3);}
+.ic-or{background:rgba(255,159,10,.15);color:var(--orange);border:1px solid rgba(255,159,10,.3);}
+.ic-gr{background:rgba(48,209,88,.15);color:var(--green);border:1px solid rgba(48,209,88,.3);}
+.ic-tl{background:rgba(100,210,255,.15);color:var(--teal);border:1px solid rgba(100,210,255,.3);}
+.ic-rd{background:rgba(255,69,58,.15);color:var(--red);border:1px solid rgba(255,69,58,.3);}
+.ic-pr{background:rgba(191,90,242,.15);color:var(--purple);border:1px solid rgba(191,90,242,.3);}
+.nc{flex:1;}.nl{font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;margin-bottom:4px;}
+.lb-bl{color:var(--blue);}.lb-or{color:var(--orange);}.lb-gr{color:var(--green);}.lb-tl{color:var(--teal);}.lb-rd{color:var(--red);}.lb-pr{color:var(--purple);}
+.nt{font-size:19px;font-weight:600;line-height:1.26;}.nd{font-size:14px;color:var(--text-2);margin-top:6px;line-height:1.43;}
+.tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:12px;}
+.tag{padding:3px 10px;border-radius:980px;font-size:11px;font-weight:500;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);color:var(--text-2);}
+.tg-bl{background:rgba(41,151,255,.1);border-color:rgba(41,151,255,.2);color:var(--blue);}
+.tg-gr{background:rgba(48,209,88,.1);border-color:rgba(48,209,88,.2);color:var(--green);}
+.tg-or{background:rgba(255,159,10,.1);border-color:rgba(255,159,10,.2);color:var(--orange);}
+.tg-tl{background:rgba(100,210,255,.1);border-color:rgba(100,210,255,.2);color:var(--teal);}
+.tg-rd{background:rgba(255,69,58,.1);border-color:rgba(255,69,58,.2);color:var(--red);}
+.tg-pr{background:rgba(191,90,242,.1);border-color:rgba(191,90,242,.2);color:var(--purple);}
+
+/* Collapse */
+.nd-detail{max-height:0;overflow:hidden;opacity:0;transition:max-height .5s cubic-bezier(.4,0,.2,1),opacity .4s;}
+.gc.active .nd-detail{max-height:900px;opacity:1;}
+.di{margin-top:20px;padding-top:20px;border-top:1px solid rgba(255,255,255,.08);}
+.di ul{padding-left:20px;}.di li{font-size:14px;color:var(--text-2);margin-bottom:8px;line-height:1.5;}
+.di li strong{color:var(--text-1);}
+.di code{font-family:var(--mono);font-size:12px;padding:2px 6px;border-radius:4px;background:rgba(255,255,255,.08);color:var(--teal);}
+.di p{font-size:14px;color:var(--text-2);line-height:1.5;}
+
+/* Arrow */
+.arrow{display:flex;justify-content:center;padding:8px 0;color:var(--text-3);font-size:18px;}
+/* Branch */
+.branch{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+.branch-lbl{grid-column:1/-1;text-align:center;font-size:12px;font-weight:500;text-transform:uppercase;letter-spacing:.08em;color:var(--text-3);padding:6px 0;}
+
+/* ── Terminal ── */
+.terminal{background:rgba(30,30,30,.7);border:1px solid var(--glass-border);border-radius:16px;overflow:hidden;backdrop-filter:blur(20px);}
+.tc-bar{display:flex;align-items:center;gap:8px;padding:14px 18px;background:rgba(255,255,255,.03);border-bottom:1px solid rgba(255,255,255,.06);}
+.dot{width:12px;height:12px;border-radius:50%;}.dot-r{background:#ff5f57;}.dot-y{background:#febc2e;}.dot-g{background:#28c840;}
+.tc-title{flex:1;text-align:center;font-size:12px;color:var(--text-3);font-family:var(--mono);}
+.tc-tabs{display:flex;background:rgba(0,0,0,.3);border-bottom:1px solid rgba(255,255,255,.06);}
+.tc-tab{flex:1;text-align:center;padding:12px 16px;font-size:13px;font-weight:500;color:var(--text-3);cursor:pointer;border-bottom:2px solid transparent;transition:color .2s,border-color .2s;font-family:var(--mono);}
+.tc-tab.active{color:var(--blue);border-bottom-color:var(--blue);}
+.tc-body{padding:24px;min-height:220px;font-family:var(--mono);font-size:13px;line-height:2;}
+.tc-panel{display:none;}.tc-panel.active{display:block;}
+.run-btn{display:inline-flex;align-items:center;gap:8px;padding:8px 20px;margin-bottom:16px;border-radius:980px;border:1px solid rgba(41,151,255,.4);background:rgba(41,151,255,.1);color:var(--blue);font-size:13px;font-weight:600;font-family:var(--mono);cursor:pointer;transition:all .2s;}
+.run-btn:hover{background:rgba(41,151,255,.18);border-color:var(--blue);}
+.run-btn:disabled{opacity:.4;cursor:not-allowed;}
+.sp-tc{color:var(--text-3);}.sp-tm{color:var(--text-2);}.sp-tw{color:#d1d5db;}.sp-tb{color:var(--blue);}.sp-tg{color:var(--green);}.sp-to{color:var(--orange);}.sp-tr{color:var(--red);}.sp-tt{color:var(--teal);}
+
+/* ── Why grid ── */
+.wg{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px;}
+.wc{background:var(--glass);border:1px solid var(--glass-border);border-radius:16px;padding:24px;transition:transform .2s,border-color .2s;position:relative;overflow:hidden;}
+.wc::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(255,255,255,.15),transparent);}
+.wc:hover{transform:translateY(-2px);border-color:rgba(255,255,255,.2);}
+.wi{font-size:28px;margin-bottom:14px;}.wq{font-size:17px;font-weight:600;margin-bottom:8px;}.wa{font-size:14px;color:var(--text-2);line-height:1.57;}
+
+/* ── Severity table ── */
+.sev-table{width:100%;border-collapse:collapse;margin:20px 0;font-size:14px;}
+.sev-table th{text-align:left;padding:10px 14px;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:var(--text-3);border-bottom:1px solid rgba(255,255,255,.1);}
+.sev-table td{padding:10px 14px;border-bottom:1px solid rgba(255,255,255,.05);color:var(--text-2);vertical-align:top;}
+.sev-table td:first-child{font-weight:600;white-space:nowrap;}
+
+/* ── Tech strip ── */
+.ts{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;}
+.ts .tag{padding:6px 14px;font-size:13px;}
+
+/* ── Bullet feature list ── */
+.feat-list{list-style:none;padding:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:12px;}
+.feat-list li{background:var(--glass);border:1px solid var(--glass-border);border-radius:12px;padding:16px 20px;font-size:14px;color:var(--text-2);line-height:1.5;}
+.feat-list li strong{color:var(--text-1);display:block;margin-bottom:4px;}
+
+/* ── Footer ── */
+.footer{text-align:center;padding:40px 22px;color:var(--text-3);font-size:12px;border-top:1px solid rgba(255,255,255,.06);}
+.footer a{color:var(--blue);text-decoration:none;}.footer a:hover{text-decoration:underline;}
+
+/* ── Animate ── */
+.fi{opacity:0;transform:translateY(20px);transition:opacity .7s,transform .7s;}
+.fi.vis{opacity:1;transform:translateY(0);}
+
+/* ── Responsive ── */
+@media(max-width:734px){
+  .branch{grid-template-columns:1fr;}
+  .hero{padding:calc(var(--nav-h)+40px) 0 60px;}
+  .sec{padding:60px 0;}
+  .sh{margin-bottom:40px;}
+  .gc{padding:20px;}
+  .wg{grid-template-columns:1fr;}
+  .feat-list{grid-template-columns:1fr;}
+  .nav-brand{font-size:12px;}
+  .nav-link{font-size:11px;padding:6px 10px;}
+}
+</style>
+</head>
+<body>
+
+<!-- ═══ NAVBAR ═══ -->
+<nav class="nav" id="navbar">
+  <div class="nav-inner">
+    <span class="nav-brand">Pornpavit T.</span>
+    <div class="nav-links">
+      <a class="nav-link active" href="#overview" data-en="Overview" data-th="ภาพรวม">Overview</a>
+      <a class="nav-link" href="#playwright" data-en="Playwright E2E" data-th="Playwright E2E">Playwright E2E</a>
+      <a class="nav-link" href="#testcase" data-en="Test Cases" data-th="Test Cases">Test Cases</a>
+      <a class="nav-link" href="#testnote" data-en="Test Notes" data-th="Test Notes">Test Notes</a>
+      <a class="nav-link" href="#bugtriage" data-en="Bug Triage" data-th="Bug Triage">Bug Triage</a>
+    </div>
+    <button class="lang-btn" id="langBtn" onclick="toggleLang()">TH</button>
+  </div>
+</nav>
+
+<!-- ═══════════════════════════════════════
+     1. OVERVIEW / HERO
+     ═══════════════════════════════════════ -->
+<section class="hero" id="overview">
+  <div class="vp">
+    <p class="t-ey fi" data-en="Portfolio · QA Automation" data-th="ผลงาน · QA Automation">Portfolio · QA Automation</p>
+    <h1 class="t-h fi"><span class="gradient-text" data-en="AI-Augmented QA" data-th="AI-Augmented QA">AI-Augmented QA</span><br><span data-en="Automation Toolkit" data-th="Automation Toolkit">Automation Toolkit</span></h1>
+    <p class="t-intro fi" data-en="A QA automation framework I built for my own daily work — packaged as Claude Code skills. I design the workflow and guardrails; the AI agent does the repetitive driving." data-th="เฟรมเวิร์ก QA Automation ที่ผมสร้างขึ้นมาเพื่อใช้ในงานประจำวัน — จัดเป็น Claude Code Skills ผมเป็นคนออกแบบ Workflow และกฎเกณฑ์ ส่วน AI Agent ทำงานซ้ำๆ แทนเรา">A QA automation framework I built for my own daily work — packaged as Claude Code skills. I design the workflow and guardrails; the AI agent does the repetitive driving.</p>
+    <div class="hero-pills fi">
+      <span class="pill">👤 Pornpavit Tantilavasute</span>
+      <span class="pill" data-en="🔧 Claude Code Agent Skills" data-th="🔧 Claude Code Agent Skills">🔧 Claude Code Agent Skills</span>
+      <span class="pill" data-en="🤖 Cross-Model AI Review" data-th="🤖 Cross-Model AI Review">🤖 Cross-Model AI Review</span>
+    </div>
+  </div>
+</section>
+
+<!-- Routing table -->
+<section class="sec" style="padding-top:0;">
+  <div class="vp">
+    <div class="sh">
+      <p class="t-ey fi" data-en="Three skills + a triage reference, one toolkit" data-th="3 Skills + Triage Reference หนึ่ง Toolkit">Three skills + a triage reference, one toolkit</p>
+      <h2 class="t-hs fi" data-en="The right tool for every QA need." data-th="เครื่องมือที่เหมาะกับทุกงาน QA">The right tool for every QA need.</h2>
+      <p class="t-intro fi" data-en="A routing layer picks the right skill from the request, so the three compose into one coherent QA workflow." data-th="ระบบ Routing จะเลือก Skill ที่เหมาะสมจากคำขอ ทำให้ทั้งสามรวมเป็น QA Workflow ที่สอดคล้องกัน">A routing layer picks the right skill from the request, so the three compose into one coherent QA workflow.</p>
+    </div>
+    <table class="route-table fi">
+      <thead><tr>
+        <th data-en="Need" data-th="ความต้องการ">Need</th>
+        <th data-en="Skill" data-th="Skill">Skill</th>
+        <th data-en="Output" data-th="ผลลัพธ์">Output</th>
+      </tr></thead>
+      <tbody>
+        <tr>
+          <td data-en="Quick test note on a single Story" data-th="Test Note สั้นๆ สำหรับ Story เดียว">Quick test note on a single Story</td>
+          <td><strong>test-note</strong></td>
+          <td data-en="Jira comment" data-th="Jira comment">Jira comment</td>
+        </tr>
+        <tr>
+          <td data-en="Full test-case suite from an Epic" data-th="ชุด Test Case จาก Epic ทั้งหมด">Full test-case suite from an Epic</td>
+          <td><strong>test-case</strong></td>
+          <td data-en="Google Sheets workbook (per-role tabs)" data-th="Google Sheets Workbook (แยก tab ตาม Role)">Google Sheets workbook (per-role tabs)</td>
+        </tr>
+        <tr>
+          <td data-en="Automated E2E coverage" data-th="E2E Automation ครอบคลุม">Automated E2E coverage</td>
+          <td><strong>playwright</strong></td>
+          <td data-en="Runnable .spec.ts + run report" data-th="ไฟล์ .spec.ts ที่รันได้ + รายงานผลรัน">Runnable .spec.ts + run report</td>
+        </tr>
+        <tr>
+          <td data-en="Rank bugs before a release" data-th="จัดอันดับบั๊กก่อน Release">Rank bugs before a release</td>
+          <td><strong>bug-triage</strong> <span style="color:var(--text-3);font-size:12px;" data-en="(reference)" data-th="(reference)">(reference)</span></td>
+          <td data-en="Severity / Priority call + ≤150-word PM note" data-th="คำตัดสิน Severity / Priority + โน้ตถึง PM ≤150 คำ">Severity / Priority call + ≤150-word PM note</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════
+     2. PLAYWRIGHT E2E
+     ═══════════════════════════════════════ -->
+<section class="sec" id="playwright">
+  <div class="vpw">
+    <div class="sh">
+      <p class="t-ey fi" style="color:var(--teal);" data-en="Playwright E2E Automation" data-th="Playwright E2E Automation">Playwright E2E Automation</p>
+      <h2 class="t-hs fi" data-en="From Jira AC to production-grade specs." data-th="จาก Jira AC สู่สเปกระดับ Production">From Jira AC to production-grade specs.</h2>
+      <p class="t-intro fi" data-en="Takes Acceptance Criteria and turns them into maintainable Playwright (TypeScript) E2E tests with built-in traceability, using a 6-phase Write → Review → Run → Debug pipeline." data-th="แปลง Acceptance Criteria เป็น Playwright (TypeScript) E2E Test ที่ดูแลรักษาง่าย พร้อม Traceability ในตัว ผ่าน Pipeline 6 ขั้นตอน Write → Review → Run → Debug">Takes Acceptance Criteria and turns them into maintainable Playwright (TypeScript) E2E tests with built-in traceability, using a 6-phase Write → Review → Run → Debug pipeline.</p>
+    </div>
+
+    <!-- Workflow -->
+    <div style="display:flex;flex-direction:column;gap:0;">
+
+      <div class="gc fi" onclick="toggle(this)">
+        <div class="nh"><div class="ni ic-bl">0</div><div class="nc">
+          <div class="nl lb-bl">Phase 0 · Detect</div>
+          <div class="nt" data-en="Read actual repo config" data-th="อ่านค่า Config ของ Repo จริง">Read actual repo config</div>
+          <div class="nd" data-en="Never assume — branch on greenfield vs. existing repo." data-th="ไม่เดาเอาเอง — แยกสาขาระหว่าง Repo ใหม่ vs. Repo ที่มีอยู่">Never assume — branch on greenfield vs. existing repo.</div>
+        </div></div>
+      </div>
+      <div class="arrow">↓</div>
+
+      <div class="gc fi" onclick="toggle(this)">
+        <div class="nh"><div class="ni ic-bl">1</div><div class="nc">
+          <div class="nl lb-bl">Phase 1 · Gather</div>
+          <div class="nt" data-en="Pull AC from Jira, test cases from Sheets, locators from live UI" data-th="ดึง AC จาก Jira, Test Cases จาก Sheets, ดึง Locators จาก UI จริง">Pull AC from Jira, test cases from Sheets, locators from live UI</div>
+          <div class="nd" data-en="Extracts accessibility-first locators from the running app instead of guessing the DOM." data-th="ดึง Locator แบบ Accessibility-first จากแอปที่รันอยู่จริง แทนที่จะเดา DOM">Extracts accessibility-first locators from the running app instead of guessing the DOM.</div>
+        </div></div>
+      </div>
+      <div class="arrow">↓</div>
+
+      <div class="gc fi" onclick="toggle(this)">
+        <div class="nh"><div class="ni ic-bl">2</div><div class="nc">
+          <div class="nl lb-bl">Phase 2 · Generate</div>
+          <div class="nt" data-en="Write .spec.ts — 1 scenario = 1 file" data-th="เขียน .spec.ts — 1 สถานการณ์ = 1 ไฟล์">Write .spec.ts — 1 scenario = 1 file</div>
+          <div class="nd" data-en="BDD titles, Page Object Model, TC_NNN IDs with (AC-X) references." data-th="ชื่อแบบ BDD, Page Object Model, TC_NNN IDs พร้อม (AC-X) references">BDD titles, Page Object Model, TC_NNN IDs with (AC-X) references.</div>
+          <div class="tags"><span class="tag tg-bl">Page Object Model</span><span class="tag tg-bl">TypeScript strict</span><span class="tag tg-bl">BDD titles</span></div>
+        </div></div>
+        <div class="nd-detail"><div class="di"><ul>
+          <li><strong data-en="Page Object Model" data-th="Page Object Model">Page Object Model</strong> <span data-en="— Selectors live in .page.ts — never inline in specs" data-th="— Selector อยู่ใน .page.ts (Page Object) — ไม่ inline ในสเปก">— Selectors live in .page.ts — never inline in specs</span></li>
+          <li><strong data-en="1:1 Traceability" data-th="1:1 Traceability">1:1 Traceability</strong> <span data-en="— Every test title carries TC_NNN ID and (AC-X) reference" data-th="— ชื่อ Test ทุกตัวมี TC_NNN ID และ (AC-X) reference สำหรับ 1:1 Traceability">— Every test title carries TC_NNN ID and (AC-X) reference</span></li>
+          <li><strong data-en="Coverage gate" data-th="Coverage gate">Coverage gate</strong> <span data-en="— ≥1 positive · ≥1 negative · ≥1 boundary per AC" data-th="— ≥1 positive · ≥1 negative · ≥1 boundary ต่อ AC">— ≥1 positive · ≥1 negative · ≥1 boundary per AC</span></li>
+          <li><strong data-en="Web-first assertions" data-th="Web-first assertions">Web-first assertions</strong> <span data-en="— No waitForTimeout; auto-retrying expectations" data-th="— เท่านั้น — ไม่ใช้ waitForTimeout">— No waitForTimeout; auto-retrying expectations</span></li>
+          <li><strong data-en="Role-based auth" data-th="Role-based auth">Role-based auth</strong> <span data-en="— via storageState (log in once, reuse across suite)" data-th="— ผ่าน storageState (admin / seller / customer)">— via storageState (log in once, reuse across suite)</span></li>
+        </ul></div></div>
+      </div>
+      <div class="arrow">↓</div>
+
+      <!-- Phase 2.5 cross-model review -->
+      <div class="gc fi" onclick="toggle(this)">
+        <div class="nh"><div class="ni ic-or">2.5</div><div class="nc">
+          <div class="nl lb-or" data-en="Phase 2.5 · Cross-Model AI Review" data-th="Phase 2.5 · Cross-Model AI Review">Phase 2.5 · Cross-Model AI Review</div>
+          <div class="nt" data-en="Git-diff gate → SHA-256 cache → Gemini 3.5 Flash or Self-Review" data-th="Git-diff gate → SHA-256 cache → Gemini 3.5 Flash หรือ Self-Review">Git-diff gate → SHA-256 cache → Gemini 3.5 Flash or Self-Review</div>
+          <div class="nd" data-en="A second LLM independently reviews generated specs before any test runs. Hallucinated findings are filtered via ±15-line source validation." data-th="LLM ตัวที่ 2 ตรวจสอบสเปกที่สร้างขึ้นอย่างอิสระก่อนรันเทส ข้อมูลที่ AI เดามาจะถูกกรองผ่านการตรวจสอบซอร์สโค้ด ±15 บรรทัด">A second LLM independently reviews generated specs before any test runs. Hallucinated findings are filtered via ±15-line source validation.</div>
+          <div class="tags"><span class="tag tg-or">SHA-256 cache</span><span class="tag tg-or">git diff gate</span><span class="tag tg-or">cost guard</span><span class="tag">free-tier safe</span></div>
+        </div></div>
+        <div class="nd-detail"><div class="di">
+          <p data-en="Two review modes — router picks automatically:" data-th="สอง Mode — Router เลือกอัตโนมัติ:">Two review modes — router picks automatically:</p>
+          <ul>
+            <li><strong style="color:var(--teal);" data-en="Mode A · Gemini Review (Default)" data-th="Mode A · Gemini Review (Default)">Mode A · Gemini Review (Default)</strong> <span data-en="— Cross-model, independent perspective via REST API" data-th="— ผ่าน REST API — cross-model มุมมองอิสระ">— Cross-model, independent perspective via REST API</span></li>
+            <li><strong style="color:var(--purple);" data-en="Mode B · Self-Review (Fallback)" data-th="Mode B · Self-Review (Fallback)">Mode B · Self-Review (Fallback)</strong> <span data-en="— Offline-safe, 5-area checklist, acknowledges same-model limits" data-th="— ใช้ offline ได้ ตรวจ 5 ด้าน ยอมรับข้อจำกัดโมเดลเดียวกัน">— Offline-safe, 5-area checklist, acknowledges blind spots</span></li>
+            <li><strong data-en="Validation ±15 lines" data-th="Validation ±15 บรรทัด">Validation ±15 lines</strong> <span data-en="— sub-agent reads source to verify each finding — hallucinations discarded" data-th="— sub-agent อ่านซอร์สเพื่อยืนยันทุก Finding — ข้อมูลที่ AI เดามาจะถูกทิ้ง">— sub-agent reads source to verify each finding — hallucinations discarded</span></li>
+            <li><strong data-en="Human-in-the-loop" data-th="Human-in-the-loop">Human-in-the-loop</strong> <span data-en="— presents diff for user approval with triage rationale" data-th="— ไม่ Auto-apply — แสดง Diff ให้ผู้ใช้อนุมัติพร้อมเหตุผลการ Triage">— presents diff for user approval with triage rationale</span></li>
+            <li><strong data-en="Cost guard" data-th="Cost guard">Cost guard</strong> <span data-en="— SHA-256 cache; re-running unchanged code = free" data-th="— Cache: SHA-256 ของ folder + fixtures + helpers ถ้าโค้ดไม่เปลี่ยน = ฟรี">— SHA-256 cache; re-running unchanged code = free</span></li>
+          </ul>
+        </div></div>
+      </div>
+      <div class="arrow">↓</div>
+
+      <div class="gc fi" onclick="toggle(this)">
+        <div class="nh"><div class="ni ic-gr">3</div><div class="nc">
+          <div class="nl lb-gr">Phase 3 · Run</div>
+          <div class="nt" data-en="Execute Playwright tests, parse JSON report" data-th="รัน Playwright Test, อ่าน JSON Report">Execute Playwright tests, parse JSON report</div>
+          <div class="nd" data-en="Results surfaced factually — no inflating pass rates." data-th="แสดงผลตามจริง — ไม่เพิ่มอัตราผ่านเกินจริง">Results surfaced factually — no inflating pass rates.</div>
+        </div></div>
+      </div>
+      <div class="arrow">↓</div>
+
+      <div class="gc fi" onclick="toggle(this)">
+        <div class="nh"><div class="ni ic-rd">4</div><div class="nc">
+          <div class="nl lb-rd">Phase 4 · Debug</div>
+          <div class="nt" data-en="Open trace → form hypotheses → fix root cause" data-th="เปิด Trace → ตั้งสมมติฐาน → แก้ที่ต้นเหตุ">Open trace → form hypotheses → fix root cause</div>
+          <div class="nd" data-en="Never mask with timeouts. 2–3 hypotheses before any fix attempt." data-th="ไม่ซ่อนปัญหาด้วย Timeout ตั้งสมมติฐาน 2–3 ข้อก่อนแก้">Never mask with timeouts. 2–3 hypotheses before any fix attempt.</div>
+        </div></div>
+      </div>
+    </div>
+
+    <!-- Terminal sim -->
+    <div style="margin-top:56px;">
+      <div class="sh">
+        <p class="t-ey fi" data-en="Live Demo" data-th="ตัวอย่างจำลอง">Live Demo</p>
+        <h2 class="t-hs fi" data-en="Phase 2.5 in action." data-th="Phase 2.5 ในการทำงานจริง">Phase 2.5 in action.</h2>
+      </div>
+      <div class="terminal fi">
+        <div class="tc-bar"><span class="dot dot-r"></span><span class="dot dot-y"></span><span class="dot dot-g"></span><span class="tc-title">claude-code — Phase 2.5 review</span></div>
+        <div class="tc-tabs">
+          <div class="tc-tab active" id="tab-gemini" onclick="switchTab('gemini')">Gemini Review</div>
+          <div class="tc-tab" id="tab-self" onclick="switchTab('self')">Self-Review</div>
+          <div class="tc-tab" id="tab-cache" onclick="switchTab('cache')">Cache Hit</div>
+        </div>
+        <div class="tc-body">
+          <div class="tc-panel active" id="panel-gemini"><button class="run-btn" id="btn-gemini" onclick="runTerm('gemini')">▶ Run simulation</button><div id="out-gemini"></div></div>
+          <div class="tc-panel" id="panel-self"><button class="run-btn" id="btn-self" onclick="runTerm('self')">▶ Run simulation</button><div id="out-self"></div></div>
+          <div class="tc-panel" id="panel-cache"><button class="run-btn" id="btn-cache" onclick="runTerm('cache')">▶ Run simulation</button><div id="out-cache"></div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Engineering Why -->
+    <div style="margin-top:56px;">
+      <div class="sh">
+        <p class="t-ey fi" data-en="Engineering Rationale" data-th="เหตุผลเชิงวิศวกรรม">Engineering Rationale</p>
+        <h2 class="t-hs fi" data-en="Why it's built this way." data-th="ทำไมถึงออกแบบแบบนี้">Why it's built this way.</h2>
+      </div>
+      <div class="wg">
+        <div class="wc fi"><div class="wi">🔀</div><div class="wq" data-en="Why cross-model review?" data-th="ทำไมต้อง Cross-Model Review?">Why cross-model review?</div><div class="wa" data-en="A model shares the same blind spots as its own output. Using Gemini to review Claude's specs introduces a genuinely independent perspective." data-th="โมเดลเดียวกันจะมีจุดบอดเดียวกันกับผลลัพธ์ของตัวเอง การใช้ Gemini ตรวจสเปกของ Claude ช่วยให้ได้มุมมองอิสระจริงๆ">A model shares the same blind spots as its own output. Using Gemini to review Claude's specs introduces a genuinely independent perspective.</div></div>
+        <div class="wc fi"><div class="wi">🔍</div><div class="wq" data-en="Why ±15-line validation?" data-th="ทำไมต้องตรวจสอบ ±15 บรรทัด?">Why ±15-line validation?</div><div class="wa" data-en="LLMs report approximate line numbers. The sub-agent reads source around each cited line and confirms the issue exists — filtering out hallucinations." data-th="LLM ระบุเลขบรรทัดแบบประมาณ Sub-agent อ่านซอร์สโค้ดรอบๆ บรรทัดที่ระบุเพื่อยืนยันว่าปัญหามีจริง กรอง Hallucination ออก">LLMs report approximate line numbers. The sub-agent reads source around each cited line and confirms the issue exists — filtering out hallucinations.</div></div>
+        <div class="wc fi"><div class="wi">💰</div><div class="wq" data-en="How is free-tier quota managed?" data-th="จัดการโควตา Free-tier อย่างไร?">How is free-tier quota managed?</div><div class="wa" data-en="SHA-256 hash of target folder plus shared fixtures. If nothing changed, the review is skipped — re-runs are free." data-th="ใช้ SHA-256 hash ของโฟลเดอร์เป้าหมาย + fixtures ที่ใช้ร่วม ถ้าไม่มีอะไรเปลี่ยน ข้ามรีวิวได้เลย — รันซ้ำฟรี">SHA-256 hash of target folder plus shared fixtures. If nothing changed, the review is skipped — re-runs are free.</div></div>
+        <div class="wc fi"><div class="wi">🚦</div><div class="wq" data-en="Why never auto-apply fixes?" data-th="ทำไมไม่ Auto-apply การแก้ไข?">Why never auto-apply fixes?</div><div class="wa" data-en="AI reviewers are thorough but over-eager. A finding may be valid but out of scope. Every fix requires explicit approval." data-th="AI Reviewer ทำงานละเอียดแต่มักเกินจำเป็น Finding อาจถูกต้องแต่อยู่นอกขอบเขต ทุกการแก้ไขต้องได้รับอนุมัติก่อน">AI reviewers are thorough but over-eager. A finding may be valid but out of scope. Every fix requires explicit approval.</div></div>
+        <div class="wc fi"><div class="wi">🧬</div><div class="wq" data-en="How do you trust a green suite?" data-th="เชื่อ suite ที่เขียวได้ยังไง?">How do you trust a green suite?</div><div class="wa" data-en="A green run only proves the tests passed — not that they'd catch a bug. So I mutation-test: deliberately break the code (≥ → >, a−b → a+b) and confirm the test turns red. If it stays green, the assertion is wrong, not the app." data-th="suite ที่เขียวพิสูจน์แค่ว่าเทสผ่าน ไม่ใช่ว่าจับบั๊กได้ ผมจึงทำ mutation test — จงใจทุบโค้ด (≥ → >, a−b → a+b) แล้วยืนยันว่าเทสขึ้นแดง ถ้ายังเขียว แปลว่า assertion ผิด ไม่ใช่แอป">A green run only proves the tests passed — not that they'd catch a bug. So I mutation-test: break the code on purpose and confirm the test turns red. If it stays green, the assertion is wrong, not the app.</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════
+     3. TEST CASE GENERATION
+     ═══════════════════════════════════════ -->
+<section class="sec" id="testcase">
+  <div class="vpw">
+    <div class="sh">
+      <p class="t-ey fi" style="color:var(--green);" data-en="Test Case Generation" data-th="การสร้าง Test Case">Test Case Generation</p>
+      <h2 class="t-hs fi" data-en="Epic → structured Google Sheets workbook." data-th="Epic → Google Sheets Workbook ที่มีโครงสร้าง">Epic → structured Google Sheets workbook.</h2>
+      <p class="t-intro fi" data-en="Turns a Jira Epic into a complete, standards-compliant test-case workbook in one pass — then supports surgical edits as requirements change." data-th="เปลี่ยน Jira Epic เป็น Workbook Test Case ที่ครบถ้วนตามมาตรฐานในรอบเดียว จากนั้นรองรับการแก้ไขแบบเจาะจงเมื่อ Requirements เปลี่ยน">Turns a Jira Epic into a complete, standards-compliant test-case workbook in one pass — then supports surgical edits as requirements change.</p>
+    </div>
+
+    <div class="branch" style="gap:20px;">
+      <div class="gc fi" onclick="toggle(this)">
+        <div class="nh"><div class="ni ic-gr">C</div><div class="nc">
+          <div class="nl lb-gr" data-en="Create Mode" data-th="โหมดสร้างใหม่">Create Mode</div>
+          <div class="nt" data-en="Epic → new workbook" data-th="Epic → Workbook ใหม่">Epic → new workbook</div>
+        </div></div>
+        <div class="nd-detail"><div class="di"><ul>
+          <li data-en="Read Epic + all child stories; surface assumptions first" data-th="อ่าน Epic + Story ลูกทั้งหมด แจ้งข้อสมมติก่อน">Read Epic + all child stories; surface assumptions first</li>
+          <li data-en="Build Drive folder structure and copy team template" data-th="สร้างโครงสร้างโฟลเดอร์ใน Drive และคัดลอก Template ของทีม">Build Drive folder structure and copy team template</li>
+          <li data-en="Write every test case — one tab per role — from each story's AC" data-th="เขียน Test Case ทุกตัว — tab ละ Role — จาก AC ของแต่ละ Story">Write every test case — one tab per role — from AC</li>
+          <li data-en="Apply formatting and update Summary tab (counts, status rollups)" data-th="จัดรูปแบบ + อัปเดตแท็บสรุป (จำนวน, สถานะ)">Apply formatting and update Summary tab</li>
+        </ul></div></div>
+      </div>
+      <div class="gc fi" onclick="toggle(this)">
+        <div class="nh"><div class="ni ic-gr">E</div><div class="nc">
+          <div class="nl lb-gr" data-en="Edit Mode" data-th="โหมดแก้ไข">Edit Mode</div>
+          <div class="nt" data-en="Surgical edits on existing workbook" data-th="แก้ไขเจาะจงบน Workbook ที่มีอยู่">Surgical edits on existing workbook</div>
+        </div></div>
+        <div class="nd-detail"><div class="di"><ul>
+          <li data-en="Add / update / delete / review test cases by ID" data-th="เพิ่ม / แก้ไข / ลบ / รีวิว Test Case ตาม ID">Add / update / delete / review test cases by ID</li>
+          <li data-en="Read-before-write safety: inspect structure, merge layout, and row mapping first" data-th="Read-before-write: ตรวจโครงสร้าง, ตาราง merge, row mapping ก่อน">Read-before-write safety step before touching anything</li>
+          <li data-en="Write back execution status (pass/fail/skip) after automated runs" data-th="เขียนสถานะรัน (pass/fail/skip) หลังรัน Automation">Write back execution status after automated runs</li>
+        </ul></div></div>
+      </div>
+    </div>
+
+    <div style="margin-top:32px;">
+      <ul class="feat-list fi">
+        <li><strong data-en="Working-assumption oracle" data-th="Oracle จากข้อสมมติ">Working-assumption oracle</strong><span data-en="Every ambiguity is resolved into a documented assumption (a QA-A matrix) that each Expected Result cites — and I grill the PO on business-logic branches instead of guessing." data-th="ทุกจุดคลุมเครือถูกตกผลึกเป็นข้อสมมติที่จดไว้ (QA-A matrix) ให้ทุก Expected Result อ้างถึง — และ grill PO ในจุดที่เป็น business logic แทนการเดา">Every ambiguity is resolved into a documented assumption (QA-A matrix) that each Expected cites — grill the PO on business-logic branches instead of guessing.</span></li>
+        <li><strong data-en="Technique-driven coverage" data-th="Coverage จากเทคนิค">Technique-driven coverage</strong><span data-en="Cases derived from Equivalence Partitioning · Boundary Value Analysis · Decision Table · State Transition — draft, then measure the gap and close it (not a static checklist)." data-th="เคสมาจาก Equivalence Partitioning · Boundary Value Analysis · Decision Table · State Transition — ร่างแล้ววัด gap ที่ยังขาดเพื่อปิด (ไม่ใช่ checklist นิ่งๆ)">Cases derived from EP · BVA · Decision Table · State Transition — draft, then measure the gap and close it.</span></li>
+        <li><strong data-en="Provenance tagging" data-th="ติดป้ายที่มา">Provenance tagging</strong><span data-en="Every case marked AI / Human / Modified — a 100%-AI suite is a red flag, not a finished one. Human stays the final authority." data-th="ทุกเคสติดป้าย AI / Human / Modified — ชุดที่เป็น AI 100% คือสัญญาณอันตราย ไม่ใช่ของเสร็จ คนคือผู้ตัดสินสุดท้าย">Every case marked AI / Human / Modified — a 100%-AI suite is a red flag, not a finished one.</span></li>
+        <li><strong data-en="AC ↔ TC + BDD" data-th="AC ↔ TC + BDD">AC ↔ TC + BDD</strong><span data-en="Each case brackets its [AC-n] and reads as a Given / When / Then behaviour — so it maps 1:1 to an automated spec title." data-th="แต่ละเคสระบุ [AC-n] และเขียนเป็น Given / When / Then — map 1:1 กับชื่อ spec อัตโนมัติ">Each case brackets its [AC-n] and reads as a Given / When / Then behaviour.</span></li>
+        <li><strong data-en="Step ↔ Expected 1:1" data-th="Step ↔ Expected 1:1">Step ↔ Expected 1:1</strong><span data-en="Each action maps to exactly one verifiable result" data-th="แต่ละ Action map กับผลลัพธ์ที่ตรวจสอบได้ 1 อย่าง">Each action maps to exactly one verifiable result</span></li>
+        <li><strong data-en="Typed test data" data-th="ข้อมูลทดสอบที่มีประเภท">Typed test data</strong><span data-en="Every input explicitly marked valid / invalid / boundary" data-th="ข้อมูลทุกตัวระบุชัดเจนว่า valid / invalid / boundary">Every input explicitly marked valid / invalid / boundary</span></li>
+        <li><strong data-en="Integrations" data-th="การเชื่อมต่อ">Integrations</strong><span data-en="Jira API + Google Sheets & Drive API (folders, templates, formatting)" data-th="Jira API + Google Sheets & Drive API (โฟลเดอร์, เทมเพลต, การจัดรูปแบบ)">Jira API + Google Sheets & Drive API</span></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════
+     4. TEST NOTE GENERATION
+     ═══════════════════════════════════════ -->
+<section class="sec" id="testnote">
+  <div class="vpw">
+    <div class="sh">
+      <p class="t-ey fi" style="color:var(--purple);" data-en="Test Note Generation" data-th="การสร้าง Test Note">Test Note Generation</p>
+      <h2 class="t-hs fi" data-en="Story → Jira test note in seconds." data-th="Story → Test Note ใน Jira ภายในไม่กี่วินาที">Story → Jira test note in seconds.</h2>
+      <p class="t-intro fi" data-en="For day-to-day story work, the team needs quick, consistent test notes. This skill makes every test note consistent, traceable, and posted in seconds." data-th="สำหรับงาน Story ประจำวัน ทีมต้องการ Test Note ที่รวดเร็วและสม่ำเสมอ Skill นี้ทำให้ Test Note ทุกตัวสม่ำเสมอ ตรวจสอบได้ และโพสต์ภายในไม่กี่วินาที">For day-to-day story work, the team needs quick, consistent test notes. This skill makes every test note consistent, traceable, and posted in seconds.</p>
+    </div>
+
+    <div style="display:flex;flex-direction:column;gap:0;">
+      <div class="gc fi" onclick="toggle(this)">
+        <div class="nh"><div class="ni ic-pr">1</div><div class="nc">
+          <div class="nl lb-pr" data-en="Step 1 · Detect Ticket Type" data-th="ขั้นตอน 1 · ตรวจประเภท Ticket">Step 1 · Detect Ticket Type</div>
+          <div class="nt" data-en="Epic → redirect to test-case skill. Story/Task/Bug → continue." data-th="Epic → เปลี่ยนเส้นทางไปที่ Test-case Skill. Story/Task/Bug → ดำเนินการต่อ">Epic → redirect to test-case skill. Story/Task/Bug → continue.</div>
+          <div class="nd" data-en="Routing discipline — the right artifact for the right ticket type, never the wrong one silently." data-th="มีวินัยในการ Routing — สร้าง Artifact ที่ถูกต้องสำหรับ Ticket ที่ถูกต้อง ไม่ทำผิดเงียบๆ">Routing discipline — the right artifact for the right ticket type.</div>
+        </div></div>
+      </div>
+      <div class="arrow">↓</div>
+      <div class="gc fi" onclick="toggle(this)">
+        <div class="nh"><div class="ni ic-pr">2</div><div class="nc">
+          <div class="nl lb-pr" data-en="Step 2 · Read AC" data-th="ขั้นตอน 2 · อ่าน AC">Step 2 · Read AC</div>
+          <div class="nt" data-en="Read Acceptance Criteria with defined fallback order across AC fields" data-th="อ่าน Acceptance Criteria ตามลำดับ Fallback ที่กำหนดไว้">Read Acceptance Criteria with defined fallback order across AC fields</div>
+        </div></div>
+      </div>
+      <div class="arrow">↓</div>
+      <div class="gc fi" onclick="toggle(this)">
+        <div class="nh"><div class="ni ic-pr">3</div><div class="nc">
+          <div class="nl lb-pr" data-en="Step 3 · Draft & Post" data-th="ขั้นตอน 3 · ร่าง & โพสต์">Step 3 · Draft & Post</div>
+          <div class="nt" data-en="Draft test note in team format, map each point to its AC, post as Jira comment" data-th="ร่าง Test Note ในรูปแบบทีม map แต่ละจุดกับ AC แล้วโพสต์เป็น Jira Comment">Draft test note in team format, map each point to its AC, post as Jira comment</div>
+        </div></div>
+      </div>
+    </div>
+
+    <div style="margin-top:32px;">
+      <ul class="feat-list fi">
+        <li><strong data-en="AC traceability" data-th="AC Traceability">AC traceability</strong><span data-en="Each note item references the AC it verifies" data-th="แต่ละรายการอ้างอิง AC ที่ตรวจสอบ">Each note item references the AC it verifies</span></li>
+        <li><strong data-en="Coverage thinking" data-th="ความคิดด้าน Coverage">Coverage thinking</strong><span data-en="Positive / negative / boundary considered per criterion" data-th="พิจารณา Positive / Negative / Boundary ต่อเกณฑ์">Positive / negative / boundary considered per criterion</span></li>
+        <li><strong data-en="Review & update" data-th="รีวิว & อัปเดต">Review & update</strong><span data-en="Same skill can review/update an existing test note on request" data-th="Skill เดียวกันสามารถรีวิว/อัปเดต Test Note ที่มีอยู่ได้">Same skill can review/update an existing test note on request</span></li>
+        <li><strong data-en="Integration" data-th="การเชื่อมต่อ">Integration</strong><span data-en="Jira API — reads AC and posts the test note as a comment" data-th="Jira API — อ่าน AC และโพสต์ Test Note เป็น Comment">Jira API — reads AC and posts the test note as a comment</span></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════
+     5. BUG TRIAGE
+     ═══════════════════════════════════════ -->
+<section class="sec" id="bugtriage">
+  <div class="vpw">
+    <div class="sh">
+      <p class="t-ey fi" style="color:var(--orange);" data-en="Bug Prioritization & Release Triage" data-th="การจัดลำดับ Bug & Release Triage">Bug Prioritization & Release Triage</p>
+      <h2 class="t-hs fi" data-en="Severity ≠ Priority." data-th="Severity ≠ Priority">Severity ≠ Priority.</h2>
+      <p class="t-intro fi" data-en="A reusable checklist for ranking open defects before a release. Severity is a property of the bug itself; Priority is a business decision." data-th="Checklist สำหรับจัดอันดับ Bug ก่อน Release. Severity คือคุณสมบัติของ Bug เอง, Priority คือการตัดสินใจทางธุรกิจ">A reusable checklist for ranking open defects before a release. Severity is a property of the bug itself; Priority is a business decision.</p>
+    </div>
+
+    <!-- Severity rubric -->
+    <div class="gc fi" onclick="toggle(this)" style="margin-bottom:20px;">
+      <div class="nh"><div class="ni ic-or">S</div><div class="nc">
+        <div class="nl lb-or" data-en="Severity Rubric" data-th="เกณฑ์ Severity">Severity Rubric</div>
+        <div class="nt" data-en="How bad the defect is when it happens" data-th="Bug ร้ายแรงแค่ไหนเมื่อเกิดขึ้น">How bad the defect is when it happens</div>
+      </div></div>
+      <div class="nd-detail"><div class="di">
+        <table class="sev-table">
+          <thead><tr><th data-en="Severity" data-th="Severity">Severity</th><th data-en="Use when" data-th="ใช้เมื่อ">Use when</th></tr></thead>
+          <tbody>
+            <tr><td style="color:var(--red);">Critical</td><td data-en="Corrupts data, breaks core flow with no workaround, money/pay/legal impact" data-th="ข้อมูลเสียหาย, ฟังก์ชันหลักใช้งานไม่ได้โดยไม่มีทางเลี่ยง, กระทบเงิน/การจ่าย/กฎหมาย">Corrupts data, breaks core flow with no workaround, money/pay/legal impact</td></tr>
+            <tr><td style="color:var(--orange);">Major</td><td data-en="Important function degraded, but a workaround or fallback exists" data-th="ฟังก์ชันสำคัญทำงานไม่สมบูรณ์ แต่มีทางเลี่ยงหรือ Fallback">Important function degraded, but a workaround or fallback exists</td></tr>
+            <tr><td style="color:var(--blue);">Minor</td><td data-en="Lower-impact validation / UX issue; no data or flow risk" data-th="Validation / UX ที่กระทบต่ำ ไม่เสี่ยงข้อมูลหรือ Flow">Lower-impact validation / UX issue; no data or flow risk</td></tr>
+            <tr><td style="color:var(--text-3);">Trivial</td><td data-en="Typos, spacing, copy — zero functional impact" data-th="ตัวสะกดผิด, ระยะห่าง, ข้อความ — ไม่กระทบฟังก์ชัน">Typos, spacing, copy — zero functional impact</td></tr>
+          </tbody>
+        </table>
+      </div></div>
+    </div>
+
+    <!-- Priority factors -->
+    <div class="gc fi" onclick="toggle(this)" style="margin-bottom:20px;">
+      <div class="nh"><div class="ni ic-or">P</div><div class="nc">
+        <div class="nl lb-or" data-en="Priority Factors" data-th="ปัจจัยกำหนด Priority">Priority Factors</div>
+        <div class="nt" data-en="Impact × likelihood, adjusted for context" data-th="ผลกระทบ × ความเป็นไปได้ ปรับตามบริบท">Impact × likelihood, adjusted for context</div>
+      </div></div>
+      <div class="nd-detail"><div class="di"><ul>
+        <li><strong data-en="Workaround?" data-th="มี Workaround?">Workaround?</strong> <span data-en="— A real alternative lowers priority. Verify it actually works." data-th="— ทางเลือกจริงลด Priority. ตรวจสอบว่าใช้ได้จริง">— A real alternative lowers priority. Verify it actually works.</span></li>
+        <li><strong data-en="Reach" data-th="ขอบเขต">Reach</strong> <span data-en="— % of users / platforms affected. Primary platform outranks rare edge." data-th="— % ผู้ใช้/แพลตฟอร์มที่กระทบ. แพลตฟอร์มหลักมาก่อน Edge Case">— % of users / platforms affected.</span></li>
+        <li><strong data-en="Data / money" data-th="ข้อมูล / เงิน">Data / money</strong> <span data-en="— Near-automatic must-fix regardless of how 'rare' it looks." data-th="— แก้ไขเกือบทุกกรณี ไม่ว่า 'หายาก' แค่ไหน">— Near-automatic must-fix.</span></li>
+        <li><strong data-en="Silent failure" data-th="ล้มเหลวเงียบ">Silent failure</strong> <span data-en="— More dangerous than a loud one. Weight it up." data-th="— Bug ที่ผู้ใช้ไม่เห็นอันตรายมากกว่าที่เห็นชัด">— More dangerous than a loud one. Weight it up.</span></li>
+      </ul></div></div>
+    </div>
+
+    <!-- Platform facts -->
+    <div class="gc fi" onclick="toggle(this)">
+      <div class="nh"><div class="ni ic-rd">!</div><div class="nc">
+        <div class="nl lb-rd" data-en="Platform Fact · iOS WebKit" data-th="ข้อเท็จจริง · iOS WebKit">Platform Fact · iOS WebKit</div>
+        <div class="nt" data-en="'Just use Chrome on iPhone' is NOT a workaround for a Safari bug." data-th="'ใช้ Chrome บน iPhone สิ' ไม่ใช่ทางเลี่ยงสำหรับ Bug ของ Safari">"Just use Chrome on iPhone" is NOT a workaround for a Safari bug.</div>
+        <div class="nd" data-en="iOS browsers all use WebKit — Chrome/Firefox on iOS render with the same engine and hit the same defect. Exception: in the EU, DMA (2024+) lets vendors ship alternative engines." data-th="เบราว์เซอร์ iOS ทั้งหมดใช้ WebKit — Chrome/Firefox บน iOS ใช้ Engine เดียวกัน เจอ Bug เดียวกัน ข้อยกเว้น: ใน EU, DMA (2024+) อนุญาตให้ใช้ Engine ทางเลือก">iOS browsers all use WebKit — Chrome/Firefox on iOS render with the same engine. Exception: EU DMA (2024+) allows alternative engines.</div>
+      </div></div>
+    </div>
+
+    <div class="gc fi" onclick="toggle(this)" style="margin-top:20px;">
+      <div class="nh"><div class="ni ic-or">✉</div><div class="nc">
+        <div class="nl lb-or" data-en="Communicate the Call" data-th="สื่อสารการตัดสินใจ">Communicate the Call</div>
+        <div class="nt" data-en="A ≤150-word note to PM / Dev Lead — blockers first, then one concrete ask." data-th="โน้ต ≤150 คำถึง PM / Dev Lead — blocker ก่อน แล้วปิดท้ายด้วยสิ่งที่ขอ 1 อย่าง">A ≤150-word note to PM / Dev Lead — blockers first, then one concrete ask.</div>
+        <div class="nd" data-en="Each bug gets a verdict + a one-line why. Any call that hinges on data I don't have (e.g. % of users on iOS / LINE) is flagged as an explicit question — and every deferral states what would flip it back to a blocker." data-th="แต่ละบั๊กให้คำตัดสิน + เหตุผลบรรทัดเดียว การตัดสินที่ขึ้นกับข้อมูลที่ยังไม่มี (เช่น % ผู้ใช้ iOS / LINE) จะถูก flag เป็นคำถามชัดเจน และการ defer ทุกครั้งจะระบุว่าอะไรทำให้พลิกกลับเป็น blocker">Each bug gets a verdict + a one-line why. Calls that hinge on data I don't have are flagged as explicit questions; every deferral states what would flip it back to a blocker.</div>
+      </div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════
+     TECH + FOOTER
+     ═══════════════════════════════════════ -->
+<section class="sec">
+  <div class="vp">
+    <div class="sh"><p class="t-ey fi" data-en="Technologies" data-th="เทคโนโลยี">Technologies</p></div>
+    <div class="ts fi">
+      <span class="tag tg-bl">Playwright (TypeScript)</span>
+      <span class="tag tg-tl">Gemini 3.5 Flash API</span>
+      <span class="tag tg-bl">Claude Code Agent SDK</span>
+      <span class="tag tg-gr">SHA-256 Caching</span>
+      <span class="tag tg-or">Git Diff Gating</span>
+      <span class="tag tg-bl">Page Object Model</span>
+      <span class="tag tg-rd">TypeScript Strict Mode</span>
+      <span class="tag tg-tl">BDD / AC↔TC Traceability</span>
+      <span class="tag tg-rd">Mutation Testing</span>
+      <span class="tag tg-gr">Provenance (AI/Human/Modified)</span>
+      <span class="tag tg-gr">CI / GitHub Actions</span>
+      <span class="tag">Jira API</span>
+      <span class="tag">Google Sheets API</span>
+      <span class="tag">ISO/IEC 29110</span>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <p style="font-size:14px;color:var(--text-2);margin-bottom:8px;">Pornpavit Tantilavasute</p>
+  <p>Software QA Engineer & AI-Augmented QA</p>
+  <p style="margin-top:10px;"><a href="mailto:joauji@gmail.com">joauji@gmail.com</a> · <a href="https://www.linkedin.com/in/pornpovit-tantilavasute-6234a9200/" target="_blank">LinkedIn</a> · <a href="https://github.com/CasperBoii/qa-automation-framework" target="_blank">GitHub</a></p>
+  <p style="margin-top:16px;color:var(--text-3);font-size:11px;" data-en="All hostnames, ticket IDs, API keys, and internal paths are sanitized placeholders. Real values are stored in environment variables only." data-th="Hostnames, Ticket IDs, API Keys และ Path ภายในทั้งหมดเป็น Placeholder ที่ Sanitize แล้ว ค่าจริงเก็บใน Environment Variables เท่านั้น">All hostnames, ticket IDs, API keys, and internal paths are sanitized placeholders. Real values are stored in environment variables only.</p>
+</footer>
+
+<script>
+/* ── Scroll fade-in ── */
+const obs=new IntersectionObserver(e=>{e.forEach(x=>{if(x.isIntersecting){x.target.classList.add('vis');obs.unobserve(x.target);}});},{threshold:.12});
+document.querySelectorAll('.fi').forEach(el=>obs.observe(el));
+
+/* ── Nav active on scroll ── */
+const sections=document.querySelectorAll('[id]');
+const navLinks=document.querySelectorAll('.nav-link');
+const navObs=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      navLinks.forEach(l=>l.classList.remove('active'));
+      const a=document.querySelector(`.nav-link[href="#${e.target.id}"]`);
+      if(a) a.classList.add('active');
+    }
+  });
+},{rootMargin:'-40% 0px -55% 0px'});
+['overview','playwright','testcase','testnote','bugtriage'].forEach(id=>{
+  const el=document.getElementById(id);
+  if(el) navObs.observe(el);
+});
+
+/* ── Card toggle ── */
+function toggle(el){
+  const was=el.classList.contains('active');
+  document.querySelectorAll('.gc.active').forEach(c=>c.classList.remove('active'));
+  if(!was) el.classList.add('active');
+}
+
+/* ── Terminal tabs ── */
+function switchTab(n){
+  ['gemini','self','cache'].forEach(t=>{
+    document.getElementById('tab-'+t).classList.toggle('active',t===n);
+    document.getElementById('panel-'+t).classList.toggle('active',t===n);
+  });
+}
+
+/* ── Terminal sim ── */
+const OUTS={
+  gemini:[
+    {d:0,c:'sp-tc',t:'$ '},{d:0,c:'sp-tb',t:'bash scripts/gemini-review.sh tests/e2e/shop-coupon-mgmt/admin\n'},
+    {d:300,c:'sp-tc',t:'[2.5] Checking git diff...\n'},{d:700,c:'sp-tc',t:'[2.5] 3 files changed. Computing SHA-256 cache key...\n'},
+    {d:1100,c:'sp-tc',t:'[2.5] No cache hit. Spawning gemini-reviewer sub-agent...\n'},
+    {d:1500,c:'sp-tc',t:'     ↳ Calling Gemini 3.5 Flash API (REST)...\n'},
+    {d:2500,c:'sp-tm',t:'SUMMARY: 1 critical, 3 suggestions, 2 nitpicks\n'},
+    {d:2700,c:'sp-tc',t:'LOG: .reviews/20260612T153000_..._admin.json\n\n'},
+    {d:2900,c:'sp-tc',t:'[Validation] Reading source ±15 lines...\n'},
+    {d:3300,c:'sp-tc',t:'     ↳ 2 findings discarded (unverifiable)\n\n'},
+    {d:3600,c:'sp-tw',t:'รัน AI review (Gemini 3.5 Flash) สำเร็จ\n'},
+    {d:3700,c:'sp-tr',t:'- Critical: 1  '},{d:3800,c:'sp-to',t:'Suggestions: 2  '},{d:3900,c:'sp-tc',t:'Discarded: 2\n\n'},
+    {d:4100,c:'sp-tr',t:'  • spec.ts:47  Non-null assertion `EMAIL!`\n'},
+    {d:4300,c:'sp-tg',t:'  ✓ Valid + in-scope → diff drafted\n'},
+    {d:4500,c:'sp-tb',t:'Apply? (y/n) '},{d:4800,c:'sp-tg',t:'y\n'},
+    {d:5000,c:'sp-tg',t:'  ✓ Fix applied → Phase 3.\n'},
+  ],
+  self:[
+    {d:0,c:'sp-tc',t:'$ '},{d:0,c:'sp-tb',t:'# Self-review (GEMINI_API_KEY not set)\n'},
+    {d:400,c:'sp-tc',t:'[2.5] Falling back to Claude self-review...\n\n'},
+    {d:800,c:'sp-tw',t:'Self-review บน tests/e2e/shop-coupon-mgmt/admin:\n'},
+    {d:1000,c:'sp-tc',t:'Checking: Playwright · TS · Traceability · A11y · POM\n\n'},
+    {d:1500,c:'sp-tr',t:'- Critical: 1  '},{d:1600,c:'sp-to',t:'Suggestions: 2\n\n'},
+    {d:1800,c:'sp-tr',t:'  • spec.ts:38  page.waitForTimeout(2000)\n'},
+    {d:2000,c:'sp-tc',t:'    → await expect(locator).toBeVisible()\n\n'},
+    {d:2200,c:'sp-to',t:'⚠ self-review shares the same blind spots\n'},
+    {d:2400,c:'sp-tb',t:'แก้ Critical ก่อนรัน? (y/n) '},{d:2700,c:'sp-tg',t:'y\n'},
+    {d:2900,c:'sp-tg',t:'  ✓ Fix applied → Phase 3.\n'},
+  ],
+  cache:[
+    {d:0,c:'sp-tc',t:'$ '},{d:0,c:'sp-tb',t:'bash scripts/gemini-review.sh tests/e2e/...\n'},
+    {d:300,c:'sp-tc',t:'[2.5] Checking git diff...\n'},{d:700,c:'sp-tc',t:'[2.5] 0 files changed.\n'},
+    {d:1000,c:'sp-tg',t:'[CACHE_HIT] SHA-256 matches last review.\n'},
+    {d:1200,c:'sp-tc',t:'     ↳ Last: 20260611 (0 critical, 2 suggestions)\n'},
+    {d:1400,c:'sp-tg',t:'     ↳ Skipping API call. Zero cost.\n\n'},
+    {d:1700,c:'sp-tm',t:'→ Phase 3 with cached result.\n'},
+  ],
+};
+function runTerm(n){
+  const btn=document.getElementById('btn-'+n),out=document.getElementById('out-'+n);
+  if(btn.disabled)return;btn.disabled=true;out.innerHTML='';
+  OUTS[n].forEach(({d,c,t})=>{setTimeout(()=>{const s=document.createElement('span');s.className=c;s.textContent=t;out.appendChild(s);},d);});
+  setTimeout(()=>{btn.disabled=false;},Math.max(...OUTS[n].map(l=>l.d))+500);
+}
+
+/* ── TH / EN toggle ── */
+let lang=localStorage.getItem('lang')||'en';
+function applyLang(){
+  const btn=document.getElementById('langBtn');
+  btn.textContent=lang==='en'?'TH':'EN';
+  document.querySelectorAll('[data-en][data-th]').forEach(el=>{
+    const txt=el.getAttribute('data-'+lang);
+    if(txt){
+      if(el.childNodes.length===1&&el.childNodes[0].nodeType===3){el.textContent=txt;}
+      else if(el.tagName==='SPAN'&&el.parentElement.tagName==='LI'){el.textContent=txt;}
+      else if(!el.querySelector('[data-en]')){el.textContent=txt;}
+    }
+  });
+  document.documentElement.lang=lang==='th'?'th':'en';
+}
+function toggleLang(){
+  lang=lang==='en'?'th':'en';
+  localStorage.setItem('lang',lang);
+  applyLang();
+}
+applyLang();
+</script>
+</body>
+</html>
